@@ -33,6 +33,20 @@
                         class="relative flex w-full flex-wrap items-stretch mb-3"
                     >
                         Name
+                        <div
+                            *ngIf="submitted && f.name.errors"
+                            class="invalid-feedback px-2"
+                        >
+                            <small
+                                *ngIf="f.name.errors.required"
+                                class="font-normal leading-normal mt-0 mb-4 text-red-600"
+                            >
+                                Post Name is required
+                            </small>
+                        </div>
+                        <!-- <div *ngIf="f.name.errors.required">
+                            Content is required
+                        </div> -->
                         <input
                             type="text"
                             [readonly]="isDelete"
@@ -45,9 +59,17 @@
                         class="relative flex w-full flex-wrap items-stretch mb-3"
                     >
                         Content
-                        <!-- <div *ngIf="f.content.errors.required">
-                            Content is required
-                        </div> -->
+                        <div
+                            *ngIf="submitted && f.content.errors"
+                            class="invalid-feedback px-2"
+                        >
+                            <small
+                                *ngIf="f.content.errors.required"
+                                class="font-normal leading-normal mt-0 mb-4 text-red-600"
+                            >
+                                Post content is required
+                            </small>
+                        </div>
                         <input
                             type="text"
                             [readonly]="isDelete"

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { createPopper } from '@popperjs/core';
 import { CRUDService, AlertService } from '@app/_services';
+import { MustMatch } from '@app/_helpers';
 import { first } from 'rxjs/operators';
 
 import {
@@ -19,6 +20,8 @@ export class ModalComponent implements OnInit {
     // @Input() showModal = false;
     form!: FormGroup;
     loading = false;
+    isAddMode = false;
+    submitted = false;
 
     @Input() updateId: '';
     @Input() isDelete: false;
@@ -66,14 +69,20 @@ export class ModalComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const formOptions: AbstractControlOptions = {};
-        this.form = this.formBuilder.group(
-            {
-                name: ['', Validators.required],
-                content: ['', Validators.required]
-            },
-            formOptions
-        );
+        // password not required in edit mode
+        // const passwordValidators = [Validators.minLength(6)];
+        // if (this.isAddMode) {
+        //     passwordValidators.push(Validators.required);
+        // }
+
+        // const formOptions: AbstractControlOptions = {
+        //     validators: MustMatch('password', 'confirmPassword')
+        // };
+
+        this.form = this.formBuilder.group({
+            name: ['', Validators.required],
+            content: ['', Validators.required]
+        });
     }
 
     // convenience getter for easy access to form fields
@@ -100,10 +109,13 @@ export class ModalComponent implements OnInit {
         // console.log('test');
         // this.alertService.success('User added', { keepAfterRouteChange: true });
 
-        // this.submitted = true;
+        this.submitted = true;
 
         // reset alerts on submit
         this.alertService.clear();
+
+        console.log('this.form.invalid', this.form.invalid);
+        console.log('this.form.invalid', this.form);
 
         // stop here if form is invalid
         if (this.form.invalid) {
