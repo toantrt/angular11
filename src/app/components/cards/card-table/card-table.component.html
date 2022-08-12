@@ -1,0 +1,134 @@
+<div
+    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
+    [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'"
+>
+    <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <alert></alert>
+        <div class="flex flex-wrap items-center">
+            <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+                <h3
+                    class="font-semibold text-lg"
+                    [ngClass]="
+                        color === 'light' ? 'text-blueGray-700' : 'text-white'
+                    "
+                >
+                    Post list
+                </h3>
+            </div>
+            <button
+                class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                (click)="toggleModal(0)"
+            >
+                <i class="fa-solid fa-circle-plus"></i> New Post
+            </button>
+        </div>
+    </div>
+    <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+            <thead>
+                <tr>
+                    <th
+                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        [ngClass]="
+                            color === 'light'
+                                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                : 'bg-red-800 text-red-300 border-red-700'
+                        "
+                    ></th>
+                    <th
+                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        [ngClass]="
+                            color === 'light'
+                                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                : 'bg-red-800 text-red-300 border-red-700'
+                        "
+                    >
+                        Name
+                    </th>
+                    <th
+                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        [ngClass]="
+                            color === 'light'
+                                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                : 'bg-red-800 text-red-300 border-red-700'
+                        "
+                    >
+                        Content
+                    </th>
+                    <th
+                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        [ngClass]="
+                            color === 'light'
+                                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                : 'bg-red-800 text-red-300 border-red-700'
+                        "
+                    >
+                        Updated At
+                    </th>
+                    <th
+                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        [ngClass]="
+                            color === 'light'
+                                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                : 'bg-red-800 text-red-300 border-red-700'
+                        "
+                    >
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items; let i = index">
+                    <!-- | searchName: searchString -->
+                    <td
+                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                    >
+                        {{ i + 1 }}
+                    </td>
+                    <td
+                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                    >
+                        {{ item.name }}
+                    </td>
+                    <td
+                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                    >
+                        {{ item.content }}
+                    </td>
+                    <td
+                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                    >
+                        {{ item.updated }}
+                    </td>
+                    <td
+                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                    >
+                        <button
+                            class="font-bold uppercase text-sm px-6 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button"
+                            (click)="toggleModal(item.id)"
+                        >
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button
+                            class="font-bold uppercase text-sm px-6 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button"
+                            (click)="toggleModal(item.id, true)"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <app-modal
+            [showModal]="showModal"
+            [selectedId]="selectedId"
+            [isDelete]="isDelete"
+            (toggleModalEvent)="updateToggle($event)"
+            (reloadListEvent)="reloadList($event)"
+        ></app-modal>
+    </div>
+</div>
