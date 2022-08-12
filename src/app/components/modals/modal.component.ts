@@ -94,6 +94,7 @@ export class ModalComponent implements OnInit {
         // console.log('this.selectedId', this.selectedId);
         this.showModal = !this.showModal;
         this.toggleModalEvent.emit(this._showModal);
+        this.form.reset();
     }
 
     getPost() {
